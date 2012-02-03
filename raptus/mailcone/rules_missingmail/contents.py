@@ -1,22 +1,19 @@
-
 import grok
 
 from zope import component
 
-from raptus.mailcone.settings.interfaces import ISMTPLocator
 
 from raptus.mailcone.rules import contents
-from raptus.mailcone.rules_sendmail import _
-from raptus.mailcone.rules_sendmail import interfaces
+from raptus.mailcone.rules_missingmail import _
+from raptus.mailcone.rules_missingmail import interfaces
 
 
 
 
 
-class SendMailItem(contents.BaseActionItem):
-    grok.implements(interfaces.ISendMailItem)
+class MissingMailItem(contents.BaseActionItem):
+    grok.implements(interfaces.IMissingMailItem)
     
-    # take only a single email address at the moment
     mail_addrs = ''
     subject = ''
     message = ''
