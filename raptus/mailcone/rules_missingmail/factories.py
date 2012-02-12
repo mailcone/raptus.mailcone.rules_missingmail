@@ -1,5 +1,6 @@
 import grok
 
+from raptus.mailcone.core import utils
 from raptus.mailcone.rules.factories import BaseFactoryCondition
 from raptus.mailcone.rules.interfaces import IConditionItemFactory
 
@@ -19,6 +20,8 @@ class MissingMailFactory(BaseFactoryCondition):
     form_fields = grok.AutoFields(interfaces.IMissingMailItem)
     ruleitem_class = MissingMailItem
 
+    def box_edit(self):
+        return grok.url(utils.getRequest(), self.context, 'wireit_edit_raptus_mailcone_missing_email')
 
     def box_output(self):
         re = super(MissingMailFactory, self).box_output()

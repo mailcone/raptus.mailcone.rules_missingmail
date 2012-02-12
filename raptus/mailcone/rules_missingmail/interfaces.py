@@ -12,7 +12,7 @@ from raptus.mailcone.rules_missingmail import _
 class IMissingMailItem(interfaces.IConditionItem):
     """ check of missing mails
     """
-    lastentry = interface.Attribute('Last datetime where a mails go trough this item')
+    savedate = interface.Attribute('Last datetime where this item was saved')
     
     periodic = schema.Choice(title=_('Periodic'),
                              vocabulary='raptus.mailcone.rules_missingmail.periodic',
@@ -24,7 +24,7 @@ class IPeriod(interface.Interface):
     
     title = interface.Attribute('name of this period')
     
-    def check(self, lastentry):
+    def check(self, lastentry, mails):
         """ calculate the with the lastentry date and
             time now the difference and return True or False.
         """

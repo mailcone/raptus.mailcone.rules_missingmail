@@ -1,4 +1,5 @@
 import grok
+import datetime
 
 from zope import component
 from zope.schema import vocabulary
@@ -17,8 +18,10 @@ class BasePeriod(grok.GlobalUtility):
     title = ''
     hours = 0
     
-    def check(self, lastentry):
-        return
+    def check(self, lastentry, mails):
+        if len(mails):
+            return True
+        return datetime.datetime.now() + datetime.timedelta(hours=self.hours) > lastentry
 
 
 
@@ -26,7 +29,6 @@ class HalfDaily(BasePeriod):
     grok.name('raptus.mailcone.rules_missingemail.halfdaily')
     title = _('12 hours')
     hours = 12
-
 
 class Daily(BasePeriod):
     grok.name('raptus.mailcone.rules_missingemail.daily')
@@ -42,6 +44,14 @@ class Monthly(BasePeriod):
     grok.name('raptus.mailcone.rules_missingemail.monthly')
     title = _('monthly')
     hours = 744
+
+class Cronjob(BasePeriod):
+    grok.name('raptus.mailcone.rules_missingemail.cronjob')
+    title = _('Each cronjob')
+    hours = 0
+    
+    def check(self, lastentry, mails):
+        return len(mails)
 
 
 
