@@ -50,7 +50,7 @@ class MissingMailItem(contents.BaseActionItem):
     def test(self, mail, factory):
         """ no tests for this rule item.
         """
-        return ''
+        return _(self.test.__doc__)
         
     def check(self, mails):
         storage = IAnnotations(self)[DATETIME_ANNOTATIONS_KEY]
